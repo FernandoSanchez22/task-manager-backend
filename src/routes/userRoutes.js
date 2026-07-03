@@ -1,19 +1,15 @@
-const express=require("express");
+const express = require("express");
+const router = express.Router();
 
-const router=express.Router();
-const userController=require("../controllers/userController");
+const userController = require("../controllers/userController");
 
-
-router.post("/register",userController.register);
+router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.get(
+router.get("/verify/:token", userController.verify);
 
-    "/verify/:token",
-
-    userController.verify
-
-);
+// TEST
 router.get("/", (req, res) => {
   res.json({ ok: true, message: "Users route working" });
 });
-module.exports=router;
+
+module.exports = router;

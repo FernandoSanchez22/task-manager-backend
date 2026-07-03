@@ -1,17 +1,18 @@
-const express=require("express");
+const express = require("express");
+const router = express.Router();
 
-const router=express.Router();
+const auth = require("../middleware/authMiddleware");
+const taskController = require("../controllers/taskController");
 
-const auth=require("../middleware/authMiddleware");
+// CRUD protegido
+router.post("/", auth, taskController.create);
+router.get("/", auth, taskController.getAll);
+router.put("/:id", auth, taskController.update);
+router.delete("/:id", auth, taskController.remove);
 
-const taskController=require("../controllers/taskController");
+// TEST PUBLICO (IMPORTANTE PARA VER SI FUNCIONA)
+router.get("/test", (req, res) => {
+  res.json({ ok: true, message: "tasks route working" });
+});
 
-router.post("/",auth,taskController.create);
-
-router.get("/",auth,taskController.getAll);
-
-router.put("/:id",auth,taskController.update);
-
-router.delete("/:id",auth,taskController.remove);
-
-module.exports=router;
+module.exports = router;
