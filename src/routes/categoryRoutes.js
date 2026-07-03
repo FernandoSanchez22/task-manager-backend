@@ -14,4 +14,8 @@ router.put("/:id", auth, categoryController.update);
 
 router.delete("/:id", auth, categoryController.remove);
 
+router.get("/", (req, res) => {
+  res.json({ ok: true });
+});
+
 module.exports = router;

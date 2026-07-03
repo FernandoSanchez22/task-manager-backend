@@ -13,4 +13,7 @@ router.get(
     userController.verify
 
 );
+router.get("/", (req, res) => {
+  res.json({ ok: true, message: "Users route working" });
+});
 module.exports=router;
