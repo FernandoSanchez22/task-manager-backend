@@ -11,25 +11,30 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://task-manager-frontend-nine-ruby.vercel.app"
+    ],
+    credentials: true
+}));
+
 app.use(express.json());
 
-// DB
 connectDB();
 
-// Rutas
 app.use("/api/users", userRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// TEST
 app.get("/", (req, res) => {
-  res.json({ message: "API funcionando 🚀" });
+    res.json({
+        message: "API funcionando 🚀"
+    });
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo`);
+    console.log("Servidor corriendo");
 });
